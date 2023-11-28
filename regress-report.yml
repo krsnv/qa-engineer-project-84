@@ -1,0 +1,129 @@
+---
+test-cases:
+  - summary: |
+      Проверка поиска товара по ключевому слову
+    status: fail
+
+  - summary: |
+      Проверка фильтрации товаров по статусу "в наличии"/"нет в наличии"
+    status: fail
+
+  - summary: |
+      Проверка фильтрации каталога товаров по категории
+    status: pass
+
+  - summary: |
+      Проверка фильтрации товара по ценовому диапозону
+    status: fail
+
+  - summary: |
+      Проверка фильтрации по бренду
+    status: pass
+
+  - summary: |
+      Проверка фильтрации по нескольким брендам
+    status: pass
+
+  - summary: |
+      Проверка фильтрации поиска товаров по цвету
+    status: fail
+
+  - summary: |
+      Проверка фильтрации товарова по размеру
+    status: fail
+
+  - summary: |
+      Проверка перехода и отображения карточки товара
+    status: fail
+
+  - summary: |
+      Проверка отображения фото товара 
+    status: pass
+
+  - summary: |
+      Проверка добавления товаров в корзину 
+    status: pass
+
+  - summary: |
+      Проверка выбора товара определенного цвета 
+    status: fail
+
+  - summary: |
+      Проверка успешного оформления заказа 
+    status: pass
+
+  - summary: |
+      Проверка отчистки определенного товара из корзины 
+    status: pass
+
+  - summary: |
+      Проверка отчистки всего списка корзины
+    status: pass
+
+  - summary: |
+      Проверка возврата из корзины в меню магазина
+    status: pass
+
+  - summary: |
+      Проверка корректного функционирования мобильной версии сайта
+    status: fail
+
+  - summary: |
+      Проверка Мультиязычности сайта
+    status: fail
+  
+  - summary: |
+      Проверка ввода отрицательного значения цены в фильтре цен
+    status: fail
+  
+  - summary: |
+      Проверка совместной фильтрации по несовместимым категориям и брендам
+    status: fail
+  
+  - summary: |
+      Проверка поиска товара по хештегу
+    status: pass
+
+bugreports:
+  - summary: |
+      После потери фокуса, меню выбора категории не скрывается автоматически
+    environment: |
+      User-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+      OS: macOS Ventura 13.5.2
+      Расширения браузера: выключены, чистая сессия Google Chrome Guest
+    steps-to-reproduce: |
+      - Перейти на https://products-store-git-v2bugfixes-hexlet-components.vercel.app/
+      - Нажать на выпадающее меню выбора категории
+      - Нажать в любую пустую область сайта, пункт меню фильтров или строку поиска
+    expected-result: |
+      При сбросе фокуса на меню категории, меню автоматически скрывается
+    actual-result: |
+      Меню выбора категории продолжает быть в открытом состоянии
+
+  - summary: |
+      Поля ввода фильтра по цене "от" и "до" позволяют ввести отрицательные значения, как вручную так и с помощью кнопок +/-
+    environment: |
+      User-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+      OS: macOS Ventura 13.5.2
+      Расширения браузера: выключены, чистая сессия Google Chrome Guest
+    steps-to-reproduce: |
+      - Открыть каталог https://hexlet-products-store.vercel.app/
+      - В меню фильтров найти блок Price (Цена) и ввести любое отрицательное значение в поля From и To
+    expected-result: |
+      Поля from и to сбрасываются в значение 0 или значение по-умолчанию для этих фильтров
+    actual-result: |
+      Допустим ввод отрицательных значений, выполняется запрос к бекенду на фильтрацию
+
+  - summary: |
+      Не переведены категории товаров на русский язык
+    environment: |
+      User-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+      OS: macOS Ventura 13.5.2
+      Расширения браузера: выключены, чистая сессия Google Chrome Guest
+    steps-to-reproduce: |
+      - Открыть каталог https://hexlet-products-store.vercel.app/
+      - В хедере изменить язык на Russia в выпадающем меню
+    expected-result: |
+      Категории в фильтре переведены на русский язык
+    actual-result: |
+      Категории отображаются на английском языке
