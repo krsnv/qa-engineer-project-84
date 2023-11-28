@@ -81,3 +81,18 @@
     - Из списка выбрать "Russian"
   expected-result: |
     Интерфейс сайта отображается на русском языке, все элементы UI переведены на русский
+
+- summary: |
+    Проверка пересечений категории и названий
+  requirement: |
+    В каталоге товаров корректно фильтруются товары по категориям и названиям. Работает взаимоисключение
+  prerequisites: |
+    Открыта страница магазина https://hexlet-products-store.vercel.app/
+    Товар с названием "Non-Alcoholic Concentrated Perfume Oil" не отображается в категории "skincare"
+  test-data: |
+    empty
+  steps:
+    - Ввести в строке поиска "Non-Alcoholic Concentrated Perfume Oil"
+    - Выбрать категорию "skincare"
+  expected-result: |
+    Отображается надпись "Nothing found!" так как товары с выбранными параметрами фильтрации не найдены
