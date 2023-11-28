@@ -127,3 +127,34 @@ bugreports:
       Категории в фильтре переведены на русский язык
     actual-result: |
       Категории отображаются на английском языке
+
+  - summary: |
+      Цены в карточке товара и количество сливаются в одну строку
+    environment: |
+      User-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+      OS: macOS Ventura 13.5.2
+      Расширения браузера: выключены, чистая сессия Google Chrome Guest
+    steps-to-reproduce: |
+      - Открыть каталог https://hexlet-products-store.vercel.app/ на десктопе
+    expected-result: |
+      Между ценами (реальная, со скидкой) есть отступы, которые позволяют удобно читать эти самые цены.
+    actual-result: |
+      Цены и количество товара сливаются в одну строку
+
+  - summary: |
+      Применение фильтра In stock не корректно формирует выдачу результатов фильтрации
+    environment: |
+      User-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+      OS: macOS Ventura 13.5.2
+      Расширения браузера: выключены, чистая сессия Google Chrome Guest
+    steps-to-reproduce: |
+      - Открыть каталог https://hexlet-products-store.vercel.app/ на десктопе
+      - Выбрать несколько брендов товара
+      - Снять чекбокс In stock
+      - Дополнительно: ввести что-нибудь в строку поиска
+      - Дополнительно: выбрать категорию товаров
+    expected-result: |
+      Корректная фильтрация товаров или отображение Nothing found
+    actual-result: |
+      Отображаются все товары, как будто фильтры не применены совсем. При этом не работает строка поиска и фильтр по категориям.
+      Фильтр товаров сломан целиком.
