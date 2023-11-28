@@ -1,0 +1,112 @@
+---
+- summary: |
+    Не отображаются товары с состоянием "не в наличии"
+  environment: |
+    User-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+    OS: macOS Ventura 13.5.2
+    Расширения браузера: выключены, чистая сессия Google Chrome Guest
+  steps-to-reproduce: |
+    - Открыть каталог https://hexlet-products-store.vercel.app/
+    - В меню фильтров найти чекбокс In stock
+    - Снять галочку In stock
+  expected-result: |
+    Товары "не в наличии" отображаются при снятии чекбокса "In stock"
+  actual-result: |
+    Товары не отображаются, вместо этого каталог отдает ошибку Nothing found
+
+---
+- summary: |
+    Поля ввода фильтра по цене "от" и "до" позволяют ввести отрицательные значения, как вручную так и с помощью кнопок +/-
+  environment: |
+    User-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+    OS: macOS Ventura 13.5.2
+    Расширения браузера: выключены, чистая сессия Google Chrome Guest
+  steps-to-reproduce: |
+    - Открыть каталог https://hexlet-products-store.vercel.app/
+    - В меню фильтров найти блок Price (Цена) и ввести любое отрицательное значение в поля From и To
+  expected-result: |
+    Поля from и to сбрасываются в значение 0 или значение по-умолчанию для этих фильтров
+  actual-result: |
+    Допустим ввод отрицательных значений, выполняется запрос к бекенду на фильтрацию
+
+---
+- summary: |
+    Не переведены категории товаров на русский язык
+  environment: |
+    User-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+    OS: macOS Ventura 13.5.2
+    Расширения браузера: выключены, чистая сессия Google Chrome Guest
+  steps-to-reproduce: |
+    - Открыть каталог https://hexlet-products-store.vercel.app/
+    - В хедере изменить язык на Russia в выпадающем меню
+  expected-result: |
+    Категории в фильтре переведены на русский язык
+  actual-result: |
+    Категории отображаются на английском языке
+
+---
+- summary: |
+    Не загружается изображение флага английского языка 
+  environment: |
+    User-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+    OS: macOS Ventura 13.5.2
+    Расширения браузера: выключены, чистая сессия Google Chrome Guest
+  steps-to-reproduce: |
+    - Открыть каталог https://hexlet-products-store.vercel.app/
+    - В хедере нажать на выпадающее меню смены языка Language
+  expected-result: |
+    Для всех языков корректно отображается изображение флага
+  actual-result: |
+    Изображение флага для пункта меню Enligsh не загружается. В элементе <img> для флага языка не корректно указан путь к изображению или изображение отсутствует
+
+---
+- summary: |
+    Ошибки в консоли разработчика о незагруженных/отствующих ресурсах
+  environment: |
+    User-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+    OS: macOS Ventura 13.5.2
+    Расширения браузера: выключены, чистая сессия Google Chrome Guest
+    Кэш: чистый
+    DNSResolve: чистый
+  steps-to-reproduce: |
+    - Открыть каталог https://hexlet-products-store.vercel.app/
+    - Открыть консоль разработчика (dev tools)
+    - Перейти во вкладку Console -> увидеть ошибки
+  expected-result: |
+    Нет ошибок в консоли разработчика
+  actual-result: |
+       GET https://site/static/css/random.css net::ERR_NAME_NOT_RESOLVED
+       GET https://site/static/js/author.js net::ERR_NAME_NOT_RESOLVED
+
+---
+- summary: |
+    На первой странице каталога отображается кнопка Previous (Назад)
+  environment: |
+    User-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+    OS: macOS Ventura 13.5.2
+    Расширения браузера: выключены, чистая сессия Google Chrome Guest
+  steps-to-reproduce: |
+    - Открыть каталог https://hexlet-products-store.vercel.app/
+    - Увидеть кнопку Previous (Назад)
+  expected-result: |
+    Так как это первая страница каталога и переходить "назад" некуда, то кнопка Previous (Назад) не должна отображаться.
+    Она должен быть только со второй страницы для всех состояний фильтра каталога
+  actual-result: |
+    На первой странице каталога отображается кнопка Previous (Назад)
+
+---
+- summary: |
+    Не работает переход на "главную" при нажатии на заголовок сайта Hexlet Store
+  environment: |
+    User-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36
+    OS: macOS Ventura 13.5.2
+    Расширения браузера: выключены, чистая сессия Google Chrome Guest
+  steps-to-reproduce: |
+    - Открыть каталог https://hexlet-products-store.vercel.app/
+    - Перейти на любой товар
+    - Нажать в хедере на Hexlet Store
+  expected-result: |
+    По нажатию на заголовок Hexlet Store пользователь возвращается на главную страницу каталога
+  actual-result: |
+    По нажатию на заголовок Hexlet Store ничего не происходит
+
